@@ -1,4 +1,4 @@
-package handler
+package main
 
 import (
 	"bytes"
@@ -7,8 +7,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"math/rand"
+	"net"
 	"net/http"
+	"os"
+	"strconv"
 	"sync"
 	"time"
 )
@@ -16,7 +20,7 @@ import (
 // ── 配置 ──────────────────────────────────────────────────────────────────────
 
 var upstreams = []string{
-    "https://security.cloudflare-dns.com/dns-query",
+	"https://security.cloudflare-dns.com/dns-query",
     "https://dns.nextdns.io/dns-query",
     "https://doh.opendns.com/dns-query",
     "https://dns.adguard-dns.com/dns-query",
@@ -167,7 +171,7 @@ func queryBatch(batch []string, method, extraQuery string, body []byte) ([]byte,
 
 // ── HTTP 处理器 ───────────────────────────────────────────────────────────────
 
-func Handler(w http.ResponseWriter, r *http.Request) {
+func dohHandler(w http.ResponseWriter, r *http.Request) {
 	method := r.Method
 	if method != http.MethodGet && method != http.MethodPost {
 		writeErrorJSON(w, http.StatusMethodNotAllowed, "Method Not Allowed: only GET/POST supported")
@@ -219,4 +223,41 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	writeErrorJSON(w, http.StatusBadGateway, "All upstream DoH failed")
+}
+
+// ── 主入口 ────────────────────────────────────────────────────────────────────
+
+func main() {
+	// 获取 Vercel 分配的端口，或本地默认 8080
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	// 验证端口号
+	if _, err := strconv.Atoi(port); err != nil {
+		log.Fatalf("Invalid PORT: %s", port)
+	}
+
+	http.HandleFunc("/dns-query", dohHandler)
+
+	// 健康检查端点（可选，Vercel 可能会用到）
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+		_, _ = w.Write([]byte("DoH proxy is running"))
+	})
+
+	addr := ":" + port
+	log.Printf("DoH proxy listening on %s", addr)
+
+	// 使用 Vercel 推荐的方式：监听所有网卡
+	listener, err := net.Listen("tcp", "0.0.0.0:"+port)
+	if err != nil {
+		log.Fatalf("Failed to listen: %v", err)
+	}
+	defer listener.Close()
+
+	if err := http.Serve(listener, nil); err != nil {
+		log.Fatalf("Server error: %v", err)
+	}
 }
