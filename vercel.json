@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/dns-query.go": {
-      "maxDuration": 10
+      "runtime": "go1.x"
     }
   },
   "routes": [
