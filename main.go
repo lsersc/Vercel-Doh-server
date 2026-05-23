@@ -25,11 +25,9 @@ var upstreams = []string{
     "https://doh.opendns.com/dns-query",
     "https://dns.adguard-dns.com/dns-query",
     "https://freedns.controld.com/p2",
-    "https://doh.cleanbrowsing.org/doh/security-filter/",
     "https://dns.google/dns-query",
     "https://ordns.he.net/dns-query",
     "https://dns.quad9.net/dns-query",
-    "https://dns.surfsharkdns.com/dns-query",
 }
 
 const (
