@@ -1,8 +1,10 @@
 {
+  "buildCommand": "go build -o api/main api/main.go",
+  "outputDirectory": ".",
   "routes": [
     {
-      "src": "/query-dns",
-      "dest": "/api/dns-query"
+      "src": "/(.*)",
+      "dest": "/api/main"
     }
   ]
 }
