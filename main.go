@@ -239,7 +239,7 @@ func main() {
 		log.Fatalf("Invalid PORT: %s", port)
 	}
 
-	http.HandleFunc("/dns-query", dohHandler)
+	http.HandleFunc("/query-dns", dohHandler)
 
 	// 健康检查端点（可选，Vercel 可能会用到）
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
