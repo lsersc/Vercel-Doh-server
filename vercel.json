@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "api/dns-query.go": {
+      "runtime": "go1.x"
+    }
+  },
+  "routes": [
+    {
+      "src": "/dns-query",
+      "dest": "/api/dns-query"
+    }
+  ]
+}
