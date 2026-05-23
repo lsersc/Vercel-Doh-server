@@ -62,7 +62,7 @@ address = https://your-project.vercel.app/dns-query
 - 如需持久缓存，考虑接入 Redis（需付费）：
 
 ```go
-// 伪代码示例 - 集成 Redis
+// 伪代码示例，仅供参考 -集成 Redis:
 import "github.com/redis/go-redis/v9"
 
 var rdb = redis.NewClient(&redis.Options{Addr: os.Getenv("REDIS_URL")})
