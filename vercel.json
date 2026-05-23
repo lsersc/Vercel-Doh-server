@@ -1,9 +1,4 @@
 {
-  "functions": {
-    "api/dns-query.go": {
-      "runtime": "go@1.21"
-    }
-  },
   "routes": [
     {
       "src": "/query-dns",
