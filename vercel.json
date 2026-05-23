@@ -1,7 +1,8 @@
 {
   "functions": {
     "api/dns-query.go": {
-      "runtime": "go1.x"
+      "memory": 128,
+      "maxDuration": 10
     }
   },
   "routes": [
