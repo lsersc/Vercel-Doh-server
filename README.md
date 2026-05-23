@@ -6,8 +6,7 @@
 your-project/
 ├── vercel.json              # Vercel 配置
 ├── go.mod                   # Go 模块定义
-├── api/
-│   └── dns-query.go        # Serverless handler
+├── main.go        # Serverless handler
 ```
 
 ## 部署步骤
