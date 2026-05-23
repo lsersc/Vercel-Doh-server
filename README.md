@@ -6,7 +6,7 @@
 your-project/
 ├── vercel.json              # Vercel 配置
 ├── go.mod                   # Go 模块定义
-├── main.go        # Serverless handler
+├── main.go                  # 主程序模块
 ```
 
 ## 部署步骤
@@ -15,18 +15,12 @@ your-project/
 
 ### 2. 在 Vercel 部署
 
-**方式 A：使用 Vercel CLI**
-```bash
-npm i -g vercel
-vercel
-```
-
-**方式 B：Vercel Dashboard**
+**Vercel Dashboard**
 - 登录 https://vercel.com
 - 点 "New Project"
 - 导入 GitHub repo
-- 自动检测 Go，无需额外配置
-- 点 Deploy
+- 自动检测 Go，如果没检测到手动选择Go
+- 点击 Deploy
 
 ### 3. 访问
 
