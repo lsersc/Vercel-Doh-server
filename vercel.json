@@ -1,10 +1,4 @@
 {
-  "functions": {
-    "api/dns-query.go": {
-      "memory": 128,
-      "maxDuration": 10
-    }
-  },
   "routes": [
     {
       "src": "/dns-query",
