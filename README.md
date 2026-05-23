@@ -8,51 +8,13 @@ your-project/
 ├── go.mod                   # Go 模块定义
 ├── api/
 │   └── dns-query.go        # Serverless handler
-└── dns-query.go            # （可选）本地开发版本
 ```
 
 ## 部署步骤
 
-### 1. 初始化项目
+### 1. fork本项目
 
-```bash
-mkdir doh-proxy && cd doh-proxy
-git init
-```
-
-### 2. 创建 go.mod
-
-```bash
-cat > go.mod << 'EOF'
-module github.com/yourusername/doh-proxy
-
-go 1.21
-EOF
-```
-
-### 3. 创建 API 目录和文件
-
-```bash
-mkdir api
-# 把 api-dns-query.go 复制到 api/dns-query.go
-cp api-dns-query.go api/dns-query.go
-```
-
-### 4. 复制 vercel.json
-
-已提供，放在根目录。
-
-### 5. 推送到 GitHub
-
-```bash
-git add .
-git commit -m "Initial commit"
-git branch -M main
-git remote add origin https://github.com/yourusername/doh-proxy.git
-git push -u origin main
-```
-
-### 6. 在 Vercel 部署
+### 2. 在 Vercel 部署
 
 **方式 A：使用 Vercel CLI**
 ```bash
@@ -67,7 +29,7 @@ vercel
 - 自动检测 Go，无需额外配置
 - 点 Deploy
 
-### 7. 访问
+### 3. 访问
 
 部署后 Vercel 会给你一个 URL，如 `https://your-project.vercel.app`
 
@@ -117,15 +79,6 @@ var rdb = redis.NewClient(&redis.Options{Addr: os.Getenv("REDIS_URL")})
 - 函数 size ~10MB
 - 免费额度通常足够个人用途
 - 按执行时间和调用次数计费
-
-## 本地测试
-
-如果想本地开发测试，使用之前的 `dns-query.go`（带 `main()`）：
-
-```bash
-go run dns-query.go
-# 访问 http://localhost:8053/dns-query?dns=...
-```
 
 ## 环境变量配置（可选）
 
