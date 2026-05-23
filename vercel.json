@@ -1,7 +1,12 @@
 {
+  "functions": {
+    "api/dns-query.go": {
+      "maxDuration": 10
+    }
+  },
   "routes": [
     {
-      "src": "/dns-query",
+      "src": "/query-dns",
       "dest": "/api/dns-query"
     }
   ]
